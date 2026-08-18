@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "vibe-backend-workshop"
 version = "0.1.0"
@@ -31,6 +35,10 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
 
 [tool.mypy]
 python_version = "3.11"
@@ -40,3 +48,10 @@ mypy_path = "code"
 [[tool.mypy.overrides]]
 module = ["jose.*", "passlib.*"]
 ignore_missing_imports = true
+
+[tool.setuptools]
+package-dir = {"" = "code"}
+
+[tool.setuptools.packages.find]
+where = ["code"]
+include = ["app*"]

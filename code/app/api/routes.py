@@ -1,10 +1,16 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 
 from app.api.deps import get_current_subject, get_limiter, get_user_store
-from app.api.schemas import HealthResponse, LoginRequest, PromptRequest, PromptResponse, TokenResponse
+from app.api.schemas import (
+    HealthResponse,
+    LoginRequest,
+    PromptRequest,
+    PromptResponse,
+    TokenResponse,
+)
 from app.core.config import Settings, get_settings
-from app.core.security import create_access_token, verify_password
 from app.core.rate_limit import SlidingWindowLimiter
+from app.core.security import create_access_token, verify_password
 from app.services.user_store import InMemoryUserStore
 
 router = APIRouter(prefix="/api/v1", tags=["workshop"])
@@ -25,7 +31,10 @@ def login(
     client_key = request.client.host if request.client else "unknown"
     limiter: SlidingWindowLimiter = get_limiter(request)
     if not limiter.allow(f"login:{client_key}"):
-        raise HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail="Rate limit exceeded")
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail="Rate limit exceeded",
+        )
 
     record = users.get(body.username)
     if record is None or not verify_password(body.password, record.hashed_password):

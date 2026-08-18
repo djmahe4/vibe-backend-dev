@@ -26,6 +26,9 @@ def get_current_subject(
 
     subject = decode_access_token(credentials.credentials, settings)
     if subject is None:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token",
+        )
 
     return subject
