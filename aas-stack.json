@@ -1,0 +1,35 @@
+{
+  "name": "vibe-fastapi-workshop-stack",
+  "flow": [
+    "inspect",
+    "search_local_catalog",
+    "select_exact_skill_ids",
+    "compose_stack_validate",
+    "human_review",
+    "execute_plan"
+  ],
+  "risk_notes": [
+    "Avoid full catalog installs; they can overwhelm agent context.",
+    "Prefer exact skills list and dry-run before install."
+  ],
+  "skills": [
+    "brainstorming",
+    "2slides-ppt-generator",
+    "api-design-principles",
+    "api-security-best-practices",
+    "clean-code",
+    "code-showcase-systematic-debugging",
+    "executing-plans",
+    "docker-expert",
+    "github-actions-advanced",
+    "fastapi-pro",
+    "auth-implementation-patterns",
+    "backend-security-coder"
+  ],
+  "invocation_examples": [
+    "npx agentic-awesome-skills --skills brainstorming,api-design-principles --dry-run",
+    "@brainstorming",
+    "@api-security-best-practices",
+    "@fastapi-pro"
+  ]
+}
