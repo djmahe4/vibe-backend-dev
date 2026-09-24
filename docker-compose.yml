@@ -1,0 +1,9 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      VIBE_ENVIRONMENT: prod
+      VIBE_DOCS_ENABLED: "false"
+      VIBE_JWT_SECRET: "change-this-in-real-deployments"

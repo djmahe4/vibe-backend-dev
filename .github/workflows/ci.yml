@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .[dev]
+      - name: Lint
+        run: make lint
+      - name: Typecheck
+        run: make typecheck
+      - name: Test
+        run: make test
+
+  readme-health:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify workshop assets links exist
+        run: |
+          test -f README.md
+          test -f docs/01-workshop-agenda.md
+          test -f presentation/workshop-slides.md
+          test -f aas-stack.json

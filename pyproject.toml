@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vibe-backend-workshop"
+version = "0.1.0"
+description = "Interactive 1-day FastAPI vibe-coding workshop"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.116.0,<0.117.0",
+  "uvicorn[standard]>=0.35.0,<0.36.0",
+  "pydantic-settings>=2.10.0,<3.0.0",
+  "python-jose[cryptography]>=3.5.0,<4.0.0",
+  "passlib[bcrypt]>=1.7.4,<2.0.0",
+  "httpx>=0.28.0,<0.29.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.4.0,<9.0.0",
+  "pytest-asyncio>=1.1.0,<2.0.0",
+  "pytest-cov>=6.2.0,<7.0.0",
+  "ruff>=0.12.0,<0.13.0",
+  "mypy>=1.17.0,<2.0.0"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["code"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+mypy_path = "code"
+
+[[tool.mypy.overrides]]
+module = ["jose.*", "passlib.*"]
+ignore_missing_imports = true
+
+[tool.setuptools]
+package-dir = {"" = "code"}
+
+[tool.setuptools.packages.find]
+where = ["code"]
+include = ["app*"]
